@@ -7,6 +7,7 @@
     <groupId>group.dummy-id</groupId>
     <artifactId>artifact-dummy-id</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <properties>
         <java.version>17</java.version>
@@ -16,23 +17,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Dependencies versions -->
         <lombok.version>1.18.30</lombok.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
         <slf4j.version>2.0.9</slf4j.version>
         <logback.version>1.4.11</logback.version>
 
-        <!-- Test dependencies versions -->
         <junit.version>5.10.0</junit.version>
         <assertj.version>3.24.2</assertj.version>
         <mockito.version>5.6.0</mockito.version>
 
-        <!-- Maven plugins versions -->
         <maven-plugin.clean.version>3.3.2</maven-plugin.clean.version>
         <maven-plugin.resources.version>3.3.1</maven-plugin.resources.version>
         <maven-plugin.compiler.version>3.11.0</maven-plugin.compiler.version>
         <maven-plugin.surefire.version>3.2.1</maven-plugin.surefire.version>
         <maven-plugin.jar.version>3.3.0</maven-plugin.jar.version>
+        <maven-plugin.war.version>3.4.0</maven-plugin.war.version>
         <maven-plugin.assembly.version>3.6.0</maven-plugin.assembly.version>
         <maven-plugin.install.version>3.1.1</maven-plugin.install.version>
         <maven-plugin.release.version>3.0.1</maven-plugin.release.version>
@@ -43,14 +42,12 @@
         <maven-plugin.failsafe.version>3.2.1</maven-plugin.failsafe.version>
         <maven-plugin.antrun.version>3.1.0</maven-plugin.antrun.version>
 
-        <!-- Other plugins versions -->
         <versions-maven-plugin.version>2.16.1</versions-maven-plugin.version>
         <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- Regular dependencies -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -73,7 +70,6 @@
                 <version>${commons-lang3.version}</version>
             </dependency>
 
-            <!-- Test Dependencies -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
@@ -113,7 +109,6 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
 
-        <!-- Test Dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -131,7 +126,6 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- Maven Plugins -->
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>${maven-plugin.clean.version}</version>
@@ -151,6 +145,13 @@
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-plugin.surefire.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-plugin.war.version}</version>
+                    <configuration>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
@@ -211,7 +212,6 @@
                     <version>${maven-plugin.failsafe.version}</version>
                 </plugin>
 
-                <!-- Other plugins -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
@@ -240,9 +240,12 @@
                 <artifactId>versions-maven-plugin</artifactId>
             </plugin>
 
-            <!-- Needed to set the minimum maven version so versions-maven-plugin can correctly provide what is available -->
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
